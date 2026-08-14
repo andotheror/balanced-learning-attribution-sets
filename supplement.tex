@@ -1,0 +1,45 @@
+\documentclass[twoside]{article}
+
+\usepackage[preprint]{aistats2026}
+\usepackage[round,authoryear]{natbib}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{listings}
+\setlength{\emergencystretch}{2em}
+
+\renewcommand{\bibname}{References}
+\renewcommand{\bibsection}{\subsubsection*{\bibname}}
+\bibliographystyle{apalike}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\E}{\mathbb E}
+\newcommand{\Pp}{\mathbb P}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\cH}{\mathcal H}
+\newcommand{\cA}{\mathcal A}
+\newcommand{\Reg}{\operatorname{Reg}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Bern}{\operatorname{Bernoulli}}
+
+\begin{document}
+\runningauthor{}
+
+\onecolumn
+\begin{center}
+{\large\bf Supplementary Material for ``Balanced Learning from Attribution Sets''}
+\end{center}
+
+\appendix
+\input{appendix}
+
+\bibliography{references}
+
+\end{document}
