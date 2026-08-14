@@ -1,0 +1,347 @@
+\section{Notation and elementary score identities}
+
+All group operations below are in a finite abelian group $G$ of size $n$. The offset set $K\subset G$ has size $k$, $\pi$ is supported on $K$, and
+\[
+ \Sigma=\sum_{r\in K}\pi_r^2,\qquad
+ c_\pi=\frac{1-\Sigma}{n-k}.
+\]
+For $z,s\in G$ let
+\[
+ q_z(s)=\pi_{s-z}\1\{s-z\in K\},\qquad
+ b_z(s)=c_\pi\1\{s-z\notin K\},\qquad a_z=q_z-b_z.
+\]
+The supports of $q_z$ and $b_z$ are disjoint. Consequently
+\begin{align*}
+ \sum_sa_z(s)&=1-(1-\Sigma)=\Sigma,\\
+ \|a_z\|_1&=1+(1-\Sigma)=2-\Sigma,\\
+ \|a_z\|_2^2&=\sum_r\pi_r^2+(n-k)c_\pi^2
+ =\Sigma+\frac{(1-\Sigma)^2}{n-k}.
+\end{align*}
+If $n\ge2k$, then $(n-k)^{-1}\le k^{-1}\le\Sigma$, so the last display is at most $2\Sigma$. Translation also gives the corresponding column identities
+\begin{equation}
+ \sum_z|a_z(s)|=2-\Sigma,\qquad
+ \sum_z a_z(s)^2\le2\Sigma.
+ \label{app:eq:columnenergy}
+\end{equation}
+Finally,
+\begin{equation}
+ \max_{z,s}|a_z(s)|\le \pi_\star+\frac1{n-k}.
+ \label{app:eq:supscore}
+\end{equation}
+
+\section{Proof of exact balance and the Hoeffding decomposition}
+
+For a source $t$, the published anchor is $t-R_t$. Define
+\[
+ A(t,s)=\E_R a_{t-R}(s).
+\]
+The source feature lies in the positive support and
+\[
+ A(t,t)=\sum_{r\in K}\pi_r a_{t-r}(t)=\sum_r\pi_r^2=\Sigma.
+\]
+Every row of $A$ sums to $\Sigma$. Moreover $A(t,s)$ depends only on $s-t$, hence $A$ is group-circulant. Every column therefore also sums to $\Sigma$. Removing the diagonal shows
+\begin{equation}
+ \sum_{s\ne t}A(t,s)=0,\qquad
+ \sum_{t\ne s}A(t,s)=0.
+ \label{app:eq:doublebalance}
+\end{equation}
+
+Let $\theta_g=\E[Yg(X)]$, $p=\E Y$, and $\mu=\E g(X)$. Draw $R_t\sim\pi$ independently for all $t$, including those with $Y_t=0$. The unnormalized estimator is
+\[
+ S_g=\sum_tY_t\sum_sa_{t-R_t}(s)g(X_s).
+\]
+For $s\ne t$, put $W(t,s)=A(t,s)$ and
+\[
+ h_{ts}=\{Y_ta_{t-R_t}(s)-pW(t,s)\}\{g(X_s)-\mu\}.
+\]
+Integrating over $(X_s,Y_s,R_s)$ gives zero because $\E[g(X_s)-\mu]=0$. Integrating over $(X_t,Y_t,R_t)$ gives zero because $\E[Y_ta_{t-R_t}(s)]=pW(t,s)$. Thus $h_{ts}$ is canonical in both coordinates.
+
+By the column identity in \eqref{app:eq:doublebalance},
+\begin{align*}
+ \sum_{t}\sum_{s\ne t}h_{ts}
+ &=\sum_tY_t\sum_{s\ne t}a_{t-R_t}(s)\{g(X_s)-\mu\}.
+\end{align*}
+The pathwise row identity is
+\[
+ \sum_{s\ne t}a_{t-R_t}(s)=\Sigma-\pi_{R_t}.
+\]
+Adding the diagonal term $Y_t\pi_{R_t}g(X_t)$ yields
+\begin{equation}
+ S_g-n\Sigma\theta_g
+ =\sum_tL_t+\sum_t\sum_{s\ne t}h_{ts},
+ \label{app:eq:decomp}
+\end{equation}
+where
+\[
+ L_t=Y_t[\pi_{R_t}\{g(X_t)-\mu\}+\mu\Sigma]-\Sigma\theta_g.
+\]
+The $L_t$ are independent and centered. Since $|g-\mu|\le2$, $|\mu|\le1$, and
+\[
+ \E\pi_R^2=\sum_r\pi_r^3\le\pi_\star\Sigma\le\Sigma,
+\]
+we have $|L_t|\le4$ and
+\begin{equation}
+ \sum_t\E L_t^2\le Cn\Sigma.
+ \label{app:eq:linearvariance}
+\end{equation}
+Equation \eqref{app:eq:decomp} also proves exact unbiasedness.
+
+\section{Four parameters of the canonical statistic}
+
+We check the quantities used in Theorem 3.3 of \citet{gine2000exponential} after decoupling. Let $U_t=(X_t,Y_t,R_t)$ and let $U'_s$ be an independent copy. In the decoupled kernel, $g(X_s)$ is evaluated at $U'_s$. Indices with $s=t$ are assigned the zero kernel.
+
+\subsection{Total second moment}
+
+Because $\Var(g(X))\le1$ and $\Var(Y a_{t-R}(s))\le\E[Y a_{t-R}(s)^2]$,
+\begin{align}
+ C_2^2
+ &=\sum_{t,s\ne t}\E h_{ts}^2\\
+ &\le \sum_{t,s}\E_R a_{t-R}(s)^2
+ =n\|a_0\|_2^2\le2n\Sigma.
+ \label{app:eq:C}
+\end{align}
+
+\subsection{Conditional row and column energies}
+
+For fixed $U_t$, $(u-v)^2\le2u^2+2v^2$, Jensen's inequality, and the score energy give
+\begin{align*}
+ \sum_{s\ne t}\E_{U'_s}h_{ts}^2
+ &\le2Y_t\sum_sa_{t-R_t}(s)^2+2p^2\sum_sW(t,s)^2\\
+ &\le8\Sigma.
+\end{align*}
+For fixed $U'_s$, translation and \eqref{app:eq:columnenergy} give
+\begin{align*}
+ \sum_{t\ne s}\E_{U_t}h_{ts}^2
+ &\le4\sum_t\E\{Y_ta_{t-R_t}(s)-pW(t,s)\}^2\\
+ &\le4\sum_t\E_Ra_{t-R}(s)^2\le8\Sigma.
+\end{align*}
+Hence
+\begin{equation}
+ B_2^2\le8\Sigma.
+ \label{app:eq:B}
+\end{equation}
+
+\subsection{Operator parameter}
+
+We prove the operator estimate rather than infer it from the Frobenius norm. For fixed $r$, define the off-diagonal matrix
+\[
+ M^r(t,s)=a_{t-r}(s)\1\{s\ne t\}.
+\]
+Its absolute row sum and absolute column sum are at most $2$. Schur's test gives
+\begin{equation}
+ \|M^r\|_{\ell_2\to\ell_2}\le2.
+ \label{app:eq:schur}
+\end{equation}
+Let $f_t(U_t)$ and $v_s(U'_s)$ satisfy $\sum_t\E f_t^2\le1$ and $\sum_s\E v_s^2\le1$. Put
+\[
+ \alpha_t(r)=\E[Y_tf_t(U_t)\mid R_t=r]-p\E f_t(U_t),
+ \quad
+ \beta_s=\E[(g(X'_s)-\mu)v_s(U'_s)].
+\]
+Cauchy--Schwarz gives $\sum_s\beta_s^2\le1$. It also gives
+\begin{equation}
+ \sum_{t,r}\pi_r\alpha_t(r)^2\le C\sum_t\E f_t^2\le C.
+ \label{app:eq:alpha}
+\end{equation}
+Indeed, if $e_t(r)=\E[Y_tf_t\mid R_t=r]$ and $m_t=\E f_t$, then
+$e_t(r)^2\le p\E[Y_tf_t^2\mid R_t=r]$ and
+$m_t^2\le\E f_t^2$. Apply $(e_t(r)-pm_t)^2\le
+2e_t(r)^2+2p^2m_t^2$ and average over $r$.
+The bilinear form in the definition of $D_2$ equals
+\[
+ \sum_r\pi_r\langle (M^r)^\top\alpha(r),\beta\rangle.
+\]
+Use \eqref{app:eq:schur}, Cauchy--Schwarz in $r$, and \eqref{app:eq:alpha} to obtain
+\begin{equation}
+ D_2\le C.
+ \label{app:eq:D}
+\end{equation}
+
+\subsection{Uniform kernel bound}
+
+Jensen's inequality and \eqref{app:eq:supscore} imply $|W(t,s)|\le\pi_\star+1/(n-k)$. Since $|g-\mu|\le2$,
+\begin{equation}
+ A_2=\max_{t,s}\|h_{ts}\|_\infty
+ \le4\left(\pi_\star+\frac1{n-k}\right).
+ \label{app:eq:A}
+\end{equation}
+Equations \eqref{app:eq:C}, \eqref{app:eq:B}, \eqref{app:eq:D}, and \eqref{app:eq:A} are the four claimed bounds.
+
+\section{Proof of the concentration and variance theorems}
+
+The upper half of the tail-decoupling theorem of \citet{delapena1995decoupling} applies to index-dependent kernels and does not require symmetry. It transfers an upper tail of the original generalized order-two statistic to that of its decoupled version, at universal changes of probability and threshold.
+
+Theorem 3.3 of \citet{gine2000exponential} states that a bounded decoupled canonical statistic $H$ satisfies
+\[
+ \Pp\{|H|>C(C_2\sqrt x+D_2x+B_2x^{3/2}+A_2x^2)\}
+ \le Ce^{-x/C},\qquad x\ge1.
+\]
+Substituting the four estimates above gives
+\begin{align}
+ |H|\le C\bigg[&\sqrt{n\Sigma x}+x+\sqrt\Sigma x^{3/2}\notag\\
+ &+\left(\pi_\star+\frac1{n-k}\right)x^2\bigg]
+ \label{app:eq:Htail}
+\end{align}
+with the same probability form. Bernstein's inequality and \eqref{app:eq:linearvariance} give $|\sum_tL_t|\le C(\sqrt{n\Sigma x}+x)$. Divide \eqref{app:eq:decomp} by $n\Sigma$ to prove the main tail theorem.
+
+The Gaussian term dominates the linear term when $x\le n\Sigma$, the $x^{3/2}$ term when $x\le\sqrt n$, and the $x^2$ term when
+\[
+ x\le\left\{\frac{n\Sigma}{(\pi_\star+1/(n-k))^2}\right\}^{1/3}.
+\]
+This proves the stated range.
+
+For completeness, the variance claim can be obtained without integrating the higher tail regimes. In the expansion of the square of the canonical sum, degeneracy kills every pair except an identical or reversed ordered index pair. The identical terms sum to at most $2n\Sigma$ by \eqref{app:eq:C}. By $2|uv|\le u^2+v^2$, reversed pairs cost no more. The canonical sum is orthogonal to every first-order function, including $\sum_tL_t$. Equation \eqref{app:eq:linearvariance} therefore gives
+\[
+ \Var(S_g)\le Cn\Sigma,\qquad
+ \Var(\widehat\theta_g)\le\frac{C}{n\Sigma}.
+\]
+
+\section{Details of the binary lower bound}
+
+Let $G=\mathbb Z_m\times\mathbb Z_k$ and $K=\{0\}\times\mathbb Z_k$. With uniform $\pi$, an event from source $(b,j)$ publishes anchor $(b,j-R)$, uniform within block $b$. Conditional on the block's number $M_b$ of events, the multiset of anchors consists of $M_b$ iid uniform locations and is independent of which sources were positive. It is therefore enough to analyze $(X_i,M_b)$.
+
+Fix one block. Under the null, $Y_i$ are iid $\Bern(p)$ and independent of the observed Rademacher features $X_i$. Define
+\[
+ \phi_i=\frac{Y_i-p}{\sqrt{p(1-p)}},\qquad
+ \phi_S=\prod_{i\in S}\phi_i.
+\]
+The $2^k$ functions $\phi_S$ are orthonormal. Conditional expectation onto $M=\sum_iY_i$ is the orthogonal projection onto the permutation-invariant subspace. For $|S|=j$, exchangeability gives
+\begin{equation}
+ \E[\phi_S\mid M]={k\choose j}^{-1}\sum_{|T|=j}\phi_T.
+ \label{app:eq:symprojection}
+\end{equation}
+Orthogonality proves
+\begin{equation}
+ \|\E[\phi_S\mid M]\|_2^2={k\choose j}^{-1}.
+ \label{app:eq:projectionnorm}
+\end{equation}
+
+Under parameter $\epsilon$, $Y_i\mid X_i\sim\Bern(p+\epsilon X_i)$. Put $\rho=\epsilon/\sqrt{p(1-p)}$. Relative to the null, the complete-label likelihood ratio is
+\[
+ L(Y\mid X)=\prod_{i=1}^k(1+\rho X_i\phi_i)
+ =\sum_{S\subseteq[k]}\rho^{|S|}X_S\phi_S.
+\]
+The count likelihood ratio is $\E[L\mid M,X]$. Average its squared centered value first over the null labels and then over $X$. The Rademacher identity $\E_X X_SX_T=\1\{S=T\}$ kills every cross-subset term. By \eqref{app:eq:projectionnorm},
+\begin{align}
+ \E_X\chi^2(P_\epsilon(M\mid X),P_0(M))
+ &=\sum_{S\ne\varnothing}\rho^{2|S|}
+   \|\E[\phi_S\mid M]\|_2^2\\
+ &=\sum_{j=1}^k\rho^{2j}.
+ \label{app:eq:exactchi}
+\end{align}
+If $\rho^2\le1/2$, this is at most $2\rho^2$. Since $X$ has the same law under both parameters, \eqref{app:eq:exactchi} is the chi-square divergence of the observed block experiment averaged over $X$. Conditional KL is bounded by conditional chi-square. Additivity across the $m=n/k$ blocks yields
+\begin{equation}
+ \operatorname{KL}(P_\epsilon\|P_0)
+ \le\frac{2n\epsilon^2}{kp(1-p)}.
+ \label{app:eq:KL}
+\end{equation}
+
+Take $p=1/2$ and $\epsilon=c_0\sqrt{k/n}$ with a sufficiently small $c_0$. The assumption $n\ge Ck$ ensures $|\epsilon|\le1/4$. Pinsker's inequality and the triangle inequality through $P_0$ show that the total variation distance between $P_\epsilon$ and $P_{-\epsilon}$ is at most a fixed constant below one.
+
+For $h_+(x)=\1\{x=1\}$ and $h_-(x)=\1\{x=-1\}$ under zero-one loss,
+\[
+ L_\epsilon(h_+)=\frac12-\epsilon,\qquad
+ L_\epsilon(h_-)=\frac12+\epsilon.
+\]
+The optimum swaps at $-\epsilon$, and the wrong decision has regret $2|\epsilon|$. Le Cam's testing inequality therefore gives expected regret at least $c|\epsilon|=c\sqrt{k/n}$ for one of the two distributions.
+
+The identical construction also gives a moment-estimation statement. Since $\E[YX]=\epsilon$, Le Cam's quadratic-loss lemma yields minimax mean squared error at least $ck/n=c/(n\Sigma)$.
+
+\section{Balanced controls on an ordinary path}
+
+We prove the path extension stated in the main paper. Let the target interval $T$ have $n_0$ consecutive source indices. Retain $k-1$ iid context features on either side. For each $t\in T$ with $Y_t=1$, publish $Z_t=t-R_t$, where $R_t\sim\pi$ on $\{0,\ldots,k-1\}$. Reports from context sources are not part of this reporter-defined cohort. Let $A_z=\{z,\ldots,z+k-1\}$ and
+\[
+ q_z(s)=\pi_{s-z}\1\{s\in A_z\}.
+\]
+Define the expected demand at anchor $z$ and the aggregate off-source exposure of feature $s$ by
+\begin{align*}
+ d_z&=\sum_{t\in T}\Pp(Z_t=z\mid Y_t=1),\\
+ l_s&=\sum_{t\in T,t\ne s}\sum_z\Pp(Z_t=z\mid Y_t=1)q_z(s).
+\end{align*}
+Autocorrelation of $\pi$ gives
+\begin{equation}
+ \sum_zd_z=n_0,\quad \sum_sl_s=n_0(1-\Sigma),\quad
+ d_z\le1,\quad l_s\le1-\Sigma.
+ \label{app:eq:pathmarginals}
+\end{equation}
+For the last inequality, extend the source sum from $T$ to all integers. The total off-zero mass of the autocorrelation is $1-\Sigma$.
+
+If $\Sigma=1$, the prior is a point mass. Set $b_z=0$ and all claims are
+immediate. Hence assume $\Sigma<1$. We need background weights $b_z(s)$ satisfying
+\begin{align}
+ b_z(s)&=0 &&s\in A_z,\label{app:eq:avoid}\\
+ \sum_sb_z(s)&=1-\Sigma,\label{app:eq:rowmass}\\
+ \sum_zd_zb_z(s)&=l_s.\label{app:eq:balance}
+\end{align}
+
+\begin{lemma}[Bounded avoidance coupling]\label{app:lem:coupling}
+Let $\alpha$ and $\beta$ be probability vectors on finite row and column sets. Let $F$ be a set of forbidden pairs. Suppose
+\[
+ \max_z\beta(F_z)\le q,\qquad
+ \max_s\alpha(F^s)\le q,\qquad q<1/2.
+\]
+There is a coupling $\gamma$ of $\alpha$ and $\beta$, supported on $F^c$, such that
+\[
+ \gamma(z,s)\le\frac{\alpha_z\beta_s}{1-2q}.
+\]
+\end{lemma}
+
+\begin{proof}
+Build a source-row-column-sink network. Source-to-row capacities are $\alpha_z$, allowed row-to-column capacities are $C\alpha_z\beta_s$ with $C=(1-2q)^{-1}$, and column-to-sink capacities are $\beta_s$. Consider a cut determined by a row set $R$ and a column set $S$ on the source side. Put $a=\alpha(R)$ and $b=\beta(S)$. Only $a>b$ is nontrivial. The allowed product mass from $R$ to $S^c$ is at least
+\begin{equation}
+ a(1-b)-q\min\{a,1-b\}\ge(1-2q)(a-b).
+ \label{app:eq:cutscalar}
+\end{equation}
+To verify the scalar inequality, first suppose $a\le1-b$. The difference is $b(1-a)+q(a-2b)$. It is nonnegative if $a\ge2b$. Otherwise $q<1/2$ lower bounds it by $a(1/2-b)\ge0$. If $a\ge1-b$, the difference is $b(1-a)+q(2a-1-b)$. The only nontrivial case has $2a<1+b$, and replacing $q$ by $1/2$ lower bounds it by $(1-b)(2a-1)/2\ge0$. Thus every cut has capacity at least one. Max-flow/min-cut gives a unit flow, which is the claimed coupling.
+\end{proof}
+
+Apply the lemma with
+\[
+ \alpha_z=\frac{d_z}{n_0},\qquad
+ \beta_s=\frac{l_s}{n_0(1-\Sigma)},\qquad
+ F=\{(z,s):s\in A_z\}.
+\]
+Every window contains $k$ features and every feature belongs to at most $k$ windows. Equation \eqref{app:eq:pathmarginals} gives
+\[
+ \beta(A_z)\le k/n_0,\qquad
+ \alpha(\{z:s\in A_z\})\le k/n_0.
+\]
+If $n_0\ge4k$, take $q=1/4$. For $d_z>0$, define
+\[
+ d_zb_z(s)=n_0(1-\Sigma)\gamma(z,s).
+\]
+The coupling marginals give \eqref{app:eq:rowmass} and \eqref{app:eq:balance}, while support gives \eqref{app:eq:avoid}. Moreover
+\begin{equation}
+ 0\le b_z(s)\le\frac{2l_s}{n_0}\le\frac{2(1-\Sigma)}{n_0}.
+ \label{app:eq:bmax}
+\end{equation}
+Thus
+\[
+ \sum_sb_z(s)^2\le\frac{2(1-\Sigma)}{n_0}\sum_sb_z(s)
+ \le\frac{2(1-\Sigma)}{n_0}\le\frac\Sigma2,
+\]
+where the last inequality uses $n_0\ge4k$ and $\Sigma\ge1/k$. Because $q_z$ and $b_z$ have disjoint supports, $a_z=q_z-b_z$ obeys
+\[
+ \sum_sa_z(s)=\Sigma,\quad \|a_z\|_1\le2,\quad
+ \|a_z\|_2^2\le\frac32\Sigma,\quad
+ \max_sb_z(s)\le2/n_0.
+\]
+
+The expected coefficient matrix has diagonal $\Sigma$. Its off-diagonal row sum is zero by the row mass condition, and its off-diagonal column sum is zero by \eqref{app:eq:balance}. This proves exact unbiasedness. The concentration proof repeats Sections B--D. The only changed estimates are as follows. For a fixed displacement, the local part has absolute column sum at most one and the background part at most $n_0(2/n_0)=2$, so Schur's test remains constant. For a fixed feature, the local conditional square sum is at most $\Sigma$ and the background sum is at most $4/n_0\le\Sigma$. Finally $A_2\lesssim\pi_\star+2/n_0$. These give the same four regimes with changed universal constants.
+
+\section{Reproduction details and numerical audits}
+
+The synthetic experiment used Python 3.11, NumPy, and Matplotlib on a Windows 10 workstation CPU. No GPU and no external dataset were used. The seed is 20260813. The script \texttt{simulate\_cyclic\_attribution.py} runs 1,500 independent repetitions for each pair
+\[
+ n\in\{256,512,1024,2048\},\qquad
+ k\in\{2,4,8,16,32,64\}.
+\]
+It writes the mean, bias, standard deviation, RMSE, and normalized RMSE for all methods and creates the paper figure. Run
+\begin{lstlisting}[basicstyle=\ttfamily\small]
+python simulate_cyclic_attribution.py
+\end{lstlisting}
+from the directory containing the script.
+
+The separate script \texttt{audit\_block\_chisquare.py} enumerates all Rademacher feature vectors for $k\le8$, computes the Poisson-binomial count distributions directly, and compares their averaged chi-square divergence with \eqref{app:eq:exactchi}. Across 16 configurations, the largest absolute discrepancy is below $5\times10^{-17}$.
+
+The path-flow audit solves the allowed-support matrix scaling problem for uniform and geometric priors, $k\in\{2,4,8,16,32\}$, and target lengths through $512$. All marginal residuals are below $10^{-8}$. In the analytic regime $n_0\ge4k$, every observed row-energy ratio $\|a_z\|_2^2/\Sigma$ is below $1.26$, compared with the proved bound $1.5$. These calculations are audits of exact formulas and constants. They are not used as evidence in place of the proofs.
