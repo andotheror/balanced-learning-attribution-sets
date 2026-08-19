@@ -41,11 +41,7 @@
 \aistatsaddress{Johns Hopkins University}]
 
 \begin{abstract}\sloppy
-Attribution sets replace the source label of each positive event by a set of candidate examples. The first learning guarantees for this model lose a factor $1/\|\pi\|_2^2$, where $\pi$ is the prior over candidates. For a uniform set of size $k$, this gives a leading rate $k/\sqrt n$. Whether that dependence is intrinsic was left open. We show that it is not under stationary attribution. Our estimator attaches a negative control to every reported set. Translation balance cancels both row and column effects of the irrelevant candidates, leaving a canonical order-two statistic. If $\Sigma=\|\pi\|_2^2$, its variance is $O(1/(n\Sigma))$ and finite-class empirical risk minimization has leading regret
-\[
-O\!\left(\sqrt{\frac{\log(|\cH|/\delta)}{n\Sigma}}\right).
-\]
-Uniform attribution therefore costs only $\sqrt{k}$ rather than $k$. The estimator is exactly unbiased, runs in $O(k)$ time per report, and requires neither the conversion rate nor population feature moments. A four-regime concentration theorem handles all overlap among reported sets through decoupling and sharp canonical U-statistic inequalities.
+Attribution sets replace the source label of each positive event by a set of candidate examples. The first learning guarantees for this model lose a factor $1/\|\pi\|_2^2$, where $\pi$ is the prior over candidates. For a uniform set of size $k$, this gives a leading rate $k/\sqrt n$. Whether that dependence is intrinsic was left open. We show that it is not under stationary attribution. Our estimator attaches a negative control to every reported set. Translation balance cancels both row and column effects of the irrelevant candidates, leaving a canonical order-two statistic. If $\Sigma=\|\pi\|_2^2$, its variance is $O(1/(n\Sigma))$ and finite-class empirical risk minimization has leading regret \[ O\!\left(\sqrt{\frac{\log(|\cH|/\delta)}{n\Sigma}}\right). \] Uniform attribution therefore costs only $\sqrt{k}$ rather than $k$. The estimator is exactly unbiased, runs in $O(k)$ time per report, and requires neither the conversion rate nor population feature moments. A four-regime concentration theorem handles all overlap among reported sets through decoupling and sharp canonical U-statistic inequalities.
 
 For uniform attribution, the rate is minimax sharp. On a stationary block instance, an exact likelihood projection gives a matching $\Omega(\sqrt{k/n})$ regret lower bound for two hypotheses and binary labels. We also extend the construction to ordinary paths when the reporter marks a source-defined target cohort. A max-flow argument produces diffuse boundary controls with the same rate. Simulations confirm exact debiasing and the predicted $\sqrt{k/n}$ scaling.
 \end{abstract}
@@ -152,12 +148,7 @@ For every $g:\mathcal X\to[-1,1]$, $\E\widehat\theta_g=\theta_g$. If $g$ is cons
 \end{proposition}
 
 \begin{proof}
-Let $A(t,s)=\E_R a_{t-R}(s)$. Its diagonal is $A(t,t)=\sum_r\pi_r^2=\Sigma$. By \eqref{eq:mass}, every off-diagonal row sums to zero. Translation invariance makes $A$ group-circulant, so every off-diagonal column also sums to zero. Independence across distinct sample indices now gives
-\[
- \E\sum_{t,s}Y_t a_{t-R_t}(s)g(X_s)
- =n\Sigma\E[Yg(X)].
-\]
-For constant $g$, \eqref{eq:mass} makes each published report contribute exactly $\Sigma g$.
+Let $A(t,s)=\E_R a_{t-R}(s)$. Its diagonal is $A(t,t)=\sum_r\pi_r^2=\Sigma$. By \eqref{eq:mass}, every off-diagonal row sums to zero. Translation invariance makes $A$ group-circulant, so every off-diagonal column also sums to zero. Independence across distinct sample indices now gives \[ \E\sum_{t,s}Y_t a_{t-R_t}(s)g(X_s) =n\Sigma\E[Yg(X)]. \] For constant $g$, \eqref{eq:mass} makes each published report contribute exactly $\Sigma g$.
 \end{proof}
 
 The column statement is the essential addition. Row centering alone proves unbiasedness, but leaves a first-order empirical feature fluctuation. Column centering removes it.
@@ -299,8 +290,7 @@ If $n_0\ge4k$, there are nonnegative weights $b_z(s)$ supported outside $A_z$ su
 They depend only on geometry and $\pi$ and can be found by max flow. Replacing \eqref{eq:score} by these weights gives Proposition~\ref{prop:unbiased}, Theorem~\ref{thm:concentration}, and Corollary~\ref{cor:erm} with $n_0$ in place of $n$ and changed universal constants.
 \end{proposition}
 
-The reporter-side cohort flag is important. It is fixed before attribution and never reveals the source within a set. The proposition does not assert that source-defined cohorts can be recovered after an unflagged path log has been released.
-Since $n_0\ge4k$, the $2(k-1)$ context examples increase the retained feature count by less than one half. Thus the stated rate is unchanged, up to a universal constant, when expressed in the total retained sample size.
+The reporter-side cohort flag is important. It is fixed before attribution and never reveals the source within a set. The proposition does not assert that source-defined cohorts can be recovered after an unflagged path log has been released. Since $n_0\ge4k$, the $2(k-1)$ context examples increase the retained feature count by less than one half. Thus the stated rate is unchanged, up to a universal constant, when expressed in the total retained sample size.
 
 \paragraph{Synthetic audit.}
 We test the stationary estimator on Rademacher scores with $\Pp(g=1)=0.65$, $\Pp(Y=1\mid g=1)=0.7$, and $\Pp(Y=1\mid g=-1)=0.2$. Thus $\theta_g=0.385$ and the feature mean is nonzero. We use uniform consecutive cyclic windows, $1{,}500$ repetitions per configuration, and no fitted parameters. Figure~\ref{fig:scaling} shows the RMSE and its predicted normalization. Across $n\in\{256,512,1024,2048\}$ and $k\in\{2,4,8,16,32,64\}$, $\mathrm{RMSE}\sqrt{n/k}$ stays between $0.55$ and $0.71$.

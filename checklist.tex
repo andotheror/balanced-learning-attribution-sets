@@ -1,0 +1,96 @@
+\section*{Checklist}
+
+\begingroup
+\small
+\setlist[enumerate]{itemsep=1pt,topsep=2pt}
+\begin{enumerate}[leftmargin=*]
+
+\item For all models and algorithms presented, check if you include:
+  \begin{enumerate}
+  \item A clear description of the mathematical setting, assumptions, algorithm, and/or model. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Section 3 defines the translated attribution mechanism, observation, prior, score, and estimator. The path extension states its additional reporter-side cohort assumption.
+
+  \item An analysis of the properties and complexity (time, space, sample size) of any algorithm. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Equation~\eqref{eq:fastscore} gives an $O(k)$ evaluation per report after one feature-sum pass. Theorem~\ref{thm:concentration}, Corollary~\ref{cor:erm}, and Theorem~\ref{thm:lower} give upper and lower sample rates.
+
+  \item (Optional) Anonymized source code, with specification of all dependencies, including external libraries. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} The supplement includes the simulation and exact chi-square audit scripts. They require Python, NumPy, and Matplotlib.
+  \end{enumerate}
+
+\item For any theoretical claim, check if you include:
+  \begin{enumerate}
+  \item Statements of the full set of assumptions of all theoretical results. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Each theorem states the group, sample-size, boundedness, prior, class, and confidence assumptions. The lower theorem explicitly distinguishes uniform worst-case sharpness from geometry-specific sharpness.
+
+  \item Complete proofs of all theoretical results. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} The main paper gives the proof spine and exact lower-bound calculation. The separately uploaded supplement proves the four concentration parameters, decoupling transfer, lower-bound likelihood projection, and path max-flow construction.
+
+  \item Clear explanations of any assumptions. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Sections 1, 3, 6, and 8 explain stationarity, the translated-set restriction, the lower-bound geometry, and the path cohort flag. Section 9 lists the remaining boundaries.
+  \end{enumerate}
+
+\item For all figures and tables that present empirical results, check if you include:
+  \begin{enumerate}
+  \item The code, data, and instructions needed to reproduce the main experimental results (either in the supplemental material or as a URL). [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Supplementary Section G specifies the one-command reproduction procedure. The experiment is fully synthetic and its script is included.
+
+  \item All the training details (e.g., data splits, hyperparameters, how they were chosen). [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} No model is trained. The distribution, values of $n$ and $k$, number of repetitions, and seed are stated in Section 8 and the script.
+
+  \item A clear definition of the specific measure or statistics and error bars (e.g., with respect to the random seed after running experiments multiple times). [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Section 8 defines RMSE and the normalization $\mathrm{RMSE}\sqrt{n/k}$. The figure summarizes 1,500 independent repetitions per configuration, and the result table includes bias, standard deviation, and RMSE.
+
+  \item A description of the computing infrastructure used. (e.g., type of GPUs, internal cluster, or cloud provider). [Yes/No/Not Applicable]
+
+  \textbf{Yes.} Supplementary Section G states that the simulation used a Windows 10 workstation CPU and no GPU.
+  \end{enumerate}
+
+\item If you are using existing assets or curating/releasing new assets, check if you include:
+  \begin{enumerate}
+  \item Citations of the creator if your work uses existing assets. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} The experiment uses no external data, code, or models.
+
+  \item The license information of the assets, if applicable. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} No external assets are used.
+
+  \item New assets either in the supplemental material or as a URL, if applicable. [Yes/No/Not Applicable]
+
+  \textbf{Yes.} The synthetic code and configuration-level results are included in the supplemental archive.
+
+  \item Information about consent from data providers/curators. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} There are no data providers.
+
+  \item Discussion of sensible content if applicable. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} The work uses synthetic binary variables only.
+  \end{enumerate}
+
+\item If you used crowdsourcing or conducted research with human subjects, check if you include:
+  \begin{enumerate}
+  \item The full text of instructions given to participants and screenshots. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} No participants were recruited.
+
+  \item Descriptions of potential participant risks, with links to Institutional Review Board approvals if applicable. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} No human-subject research was conducted.
+
+  \item The estimated hourly wage paid to participants and the total amount spent on participant compensation. [Yes/No/Not Applicable]
+
+  \textbf{Not Applicable.} No participants were recruited.
+  \end{enumerate}
+
+\end{enumerate}
+\endgroup
